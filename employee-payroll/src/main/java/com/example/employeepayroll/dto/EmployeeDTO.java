@@ -1,35 +1,18 @@
-package com.example.employeepayroll.model;
+package com.example.employeepayroll.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "employees")
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class EmployeeDTO {
     private String name;
     private double salary;
 
     // Constructors
-    public Employee() {}
+    public EmployeeDTO() {}
 
-    public Employee(String name, double salary) {
+    public EmployeeDTO(String name, double salary) {
         this.name = name;
         this.salary = salary;
     }
 
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
