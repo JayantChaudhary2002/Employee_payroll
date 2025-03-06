@@ -2,50 +2,57 @@ package com.example.employeepayroll.service;
 
 import com.example.employeepayroll.dto.EmployeeDTO;
 import com.example.employeepayroll.model.Employee;
+import com.example.employeepayroll.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class EmployeeService {
 
-    private final List<Employee> employeeList = new ArrayList<>();
-    private final AtomicLong idCounter = new AtomicLong(1); // To generate unique IDs
+    @Autowired
+    private EmployeeRepository employeeRepository; // ✅ Use Repository for MySQL operations
 
-    // Add Employee
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+    // Add Employee to Database
     public Employee addEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = new Employee(idCounter.getAndIncrement(), employeeDTO.getName(), employeeDTO.getSalary());
-        employeeList.add(employee);
-        return employee;
+        Employee employee = new Employee(employeeDTO.getName(), employeeDTO.getSalary());
+        return employeeRepository.save(employee); // Save to DB
     }
 
-    // Get All Employees
+    // ✅ Get All Employees from Database
     public List<Employee> getAllEmployees() {
-        return employeeList;
+        return employeeRepository.findAll();
     }
 
-    // Get Employee by ID
+    // ✅ Get Employee by ID
     public Optional<Employee> getEmployeeById(Long id) {
-        return employeeList.stream().filter(emp -> emp.getId().equals(id)).findFirst();
+        return employeeRepository.findById(id);
     }
 
-    // Update Employee
+    // ✅ Update Employee
     public Employee updateEmployee(Long id, EmployeeDTO employeeDTO) {
-        Optional<Employee> employeeOptional = getEmployeeById(id);
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
         if (employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
             employee.setName(employeeDTO.getName());
             employee.setSalary(employeeDTO.getSalary());
-            return employee;
+            return employeeRepository.save(employee); // ✅ Save updated record
         }
         return null;
     }
 
-    // Delete Employee
+    // ✅ Delete Employee
     public boolean deleteEmployee(Long id) {
-        return employeeList.removeIf(employee -> employee.getId().equals(id));
+        if (employeeRepository.existsById(id)) {
+            employeeRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

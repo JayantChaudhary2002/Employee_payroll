@@ -4,6 +4,7 @@ import com.example.employeepayroll.dto.EmployeeDTO;
 import com.example.employeepayroll.model.Employee;
 import com.example.employeepayroll.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +19,13 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     // Create Employee
+    // ✅ Change saveEmployee() to addEmployee()
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee newEmployee = employeeService.addEmployee(employeeDTO);
-        return ResponseEntity.ok(newEmployee);
+    public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        Employee savedEmployee = employeeService.addEmployee(employeeDTO);
+        return ResponseEntity.ok(savedEmployee);
     }
+
 
     // Get All Employees
     @GetMapping
