@@ -2,26 +2,26 @@ package com.example.employeepayroll.model;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "employees")
+@Entity // ✅ Mark as a JPA entity
+@Table(name = "employees") // ✅ Map to a database table
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // ✅ Auto-generate ID
     private Long id;
 
     private String name;
     private double salary;
 
-    // Constructors
+    // Default constructor (required by JPA)
     public Employee() {}
 
-    public Employee(String name, double salary) {
+    public Employee(Long id, String name, double salary) {
+        this.id = id;
         this.name = name;
         this.salary = salary;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
