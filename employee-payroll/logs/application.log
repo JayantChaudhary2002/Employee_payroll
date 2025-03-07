@@ -60,3 +60,8 @@ Update your application's configuration. The following values are valid:
 2025-03-07 11:31:47 - INFO - LiveReload server is running on port 35729
 2025-03-07 11:31:47 - INFO - Tomcat started on port 8080 (http) with context path '/'
 2025-03-07 11:31:47 - INFO - Started EmployeePayrollApplication in 9.561 seconds (process running for 10.739)
+2025-03-07 11:37:46 - INFO - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-07 11:37:46 - INFO - Graceful shutdown complete
+2025-03-07 11:37:47 - INFO - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-07 11:37:47 - INFO - HikariPool-1 - Shutdown initiated...
+2025-03-07 11:37:47 - INFO - HikariPool-1 - Shutdown completed.
