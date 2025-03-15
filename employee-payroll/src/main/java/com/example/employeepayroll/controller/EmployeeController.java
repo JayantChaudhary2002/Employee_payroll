@@ -5,6 +5,7 @@ import com.example.employeepayroll.model.Employee;
 import com.example.employeepayroll.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class EmployeeController {
     // Create Employee
     // ✅ Change saveEmployee() to addEmployee()
     @PostMapping
-    public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<Employee> addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
         Employee savedEmployee = employeeService.addEmployee(employeeDTO);
         return ResponseEntity.ok(savedEmployee);
     }
@@ -43,7 +44,7 @@ public class EmployeeController {
 
     // Update Employee
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,@Valid @RequestBody EmployeeDTO employeeDTO) {
         Employee updatedEmployee = employeeService.updateEmployee(id, employeeDTO);
         return updatedEmployee != null ? ResponseEntity.ok(updatedEmployee) : ResponseEntity.notFound().build();
     }
